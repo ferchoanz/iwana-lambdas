@@ -1,0 +1,16 @@
+{
+  "name": "api-get-search-keywords",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "zip -1r function.zip * && aws lambda update-function-code --function-name api-get-search-keywords --zip-file fileb://function.zip",
+    "activate-xray": "aws lambda update-function-configuration --function-name api-get-search-keywords --tracing-config Mode=Active",
+    "test": "aws lambda invoke --function-name api-get-search-keywords --payload '{\"params\": {\"querystring\": {\"userId\": \"9\"}}}' response.json && cat response.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.7.1"
+  }
+}

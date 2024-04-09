@@ -1,0 +1,20 @@
+{
+    "name": "cognito-token-api-prod-generate-token",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.mjs",
+    "scripts": {
+        "deploy": "zip -1r function.zip * && aws lambda update-function-code --function-name cognito-token-api-prod-generate-token --zip-file fileb://function.zip",
+        "activate-xray": "aws lambda update-function-configuration --function-name cognito-token-api-prod-generate-token --tracing-config Mode=Active",
+        "test": "aws lambda invoke --function-name cognito-token-api-prod-generate-token --payload '{\"params\": {\"querystring\": {\"userId\": \"9\"}}}' response.json && cat response.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.1281.0"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.115"
+    }
+}

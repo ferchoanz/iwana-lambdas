@@ -1,0 +1,6 @@
+{
+  "name": "custom-email-forgot-password",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "api-post-user-partner-dev",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.mjs",
+    "scripts": {
+        "deploy": "zip -1r function.zip * && aws lambda update-function-code --function-name api-post-user-partner-dev --zip-file fileb://function.zip",
+        "activate-xray": "aws lambda update-function-configuration --function-name api-post-user-partner-dev --tracing-config Mode=Active",
+        "test": "aws lambda invoke --function-name api-post-user-partner-dev --payload '{\"params\": {\"querystring\": {\"userId\": \"9\"}}}' response.json && cat response.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.1265.0",
+        "cross-fetch": "^3.1.5"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.115"
+    }
+}

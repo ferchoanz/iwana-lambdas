@@ -1,0 +1,17 @@
+{
+    "name": "api-get-orders-dev",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.mjs",
+    "scripts": {
+        "deploy": "zip -1r function.zip * && aws lambda update-function-code --function-name api-get-orders-dev --zip-file fileb://function.zip",
+        "activate-xray": "aws lambda update-function-configuration --function-name api-get-orders-dev --tracing-config Mode=Active",
+        "test": "aws lambda invoke --function-name api-get-orders-dev --payload '{\"params\": {\"querystring\": {\"partnerId\": 1, \"storeId\": 3}}}' response.json && cat response.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "pg": "^8.7.1"
+    }
+}

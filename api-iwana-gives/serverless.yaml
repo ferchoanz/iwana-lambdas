@@ -1,0 +1,51 @@
+service: api-iwana-gives
+
+# useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  #region: us-east-1
+package:
+  individually: true
+  
+#  environment: 
+#   BASE_URL: ${env:BASE_URL}
+#   DB_TYPE: ${env:DB_TYPE}
+#   DB_HOST: ${env:DB_HOST}
+#   DB_USER: ${env:DB_USER}
+#   DB_PASSWORD: ${env:DB_PASSWORD}
+#   DB_DATABASE: ${env:DB_DATABASE}
+#   DB_PORT: ${env:DB_PORT}
+#   DB_SYNC: ${env:DB_SYNC}
+
+custom:
+  stage: "${opt:stage, self:provider.stage}"
+  customDomain:
+    domainName: "givesapidev.iwanacash.com"
+    # domainName: "${self:custom.domains.${self:custom.stage}}"
+    stage: "${self:provider.stage}"
+    endpointType: 'regional'
+    securityPolicy: "tls_1_2"
+    apiType: "http"
+    basePath: "${self:provider.stage}"
+
+functions:
+  main: 
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: any
+          path: /
+          cors:
+            origin: "*"
+      - http:
+          method: any
+          path: '{proxy+}'
+          cors:
+            origin: "*"

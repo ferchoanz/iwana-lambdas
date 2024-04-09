@@ -1,0 +1,17 @@
+{
+  "name": "cxc-schedule",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ing. Fernando Pacheco",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.9.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.116"
+  }
+}

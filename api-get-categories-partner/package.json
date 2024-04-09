@@ -1,0 +1,17 @@
+{
+    "name": "api-get-categories",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.mjs",
+    "scripts": {
+        "deploy": "zip -1r function.zip * && aws lambda update-function-code --function-name api-get-categories --zip-file fileb://function.zip",
+        "activate-xray": "aws lambda update-function-configuration --function-name api-get-categories --tracing-config Mode=Active",
+        "test": "aws lambda invoke --function-name api-get-categories --payload '{\"params\": {\"querystring\": {\"partnerId\": 1, \"storeId\": 3}}}' response.json && cat response.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "pg": "^8.7.1"
+    }
+}

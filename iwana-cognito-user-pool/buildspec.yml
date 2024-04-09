@@ -1,0 +1,41 @@
+version: 0.2
+# env:
+#   variables:
+#     SLS_DEBUG: "*"
+#     SONAR_SCANNER_VERSION: "4.4.0.2170"
+#     SONAR_SCANNER_OPTS: "-server"
+#   secrets-manager:
+#     LOGIN: SonarCloud:SONAR_TOKEN
+#     SONAR_TOKEN: SonarCloud:SONAR_TOKEN
+#     HOST: SonarCloud:HOST
+#     ORGANIZATION: SonarCloud:Organization
+#     PROJECT_NAME: SonarCloud:Project_Rocio-Cognito-Userpool
+phases:
+    install:
+        runtime-versions:
+            nodejs: 10
+        commands:                     
+            - npm install -g serverless
+            # - npm install -g newman
+            # - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+            # - unzip sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip -d $HOME/.sonar/
+            # - ln -s $HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner   
+    pre_build:
+        commands:
+            # - echo sonar-scanner -Dsonar.organization=$ORGANIZATION -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=https://sonarcloud.io -Dsonar.exclusions="**/*.java" -Dsonar.c.file.suffixes=- -Dsonar.cpp.file.suffixes=- -Dsonar.objc.file.suffixes=- -X -Dsonar.sources=.
+            # - sonar-scanner -Dsonar.organization=$ORGANIZATION -Dsonar.projectKey=$PROJECT_NAME -Dsonar.host.url=https://sonarcloud.io -Dsonar.exclusions="**/*.java" -Dsonar.c.file.suffixes=- -Dsonar.cpp.file.suffixes=- -Dsonar.objc.file.suffixes=- -X -Dsonar.sources=.
+            - # npm test
+    build:
+        commands:
+            - serverless deploy --stage $ENVIRONMENT --region us-east-1 --config serverless.yml
+    post_build:
+        commands:
+            # - cd newman/
+            # - newman run postman_suites/Rocio.postman_collection.json -e postman_enviroments/$ENVIRONMENT.postman_environment.json
+#
+# reports:
+#     jest_reports:
+#         files:
+#             - testResult.xml
+#         file-format: JUNITXML
+#         base-directory: reports

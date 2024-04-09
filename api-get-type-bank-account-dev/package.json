@@ -1,0 +1,19 @@
+{
+    "name": "api-get-type-bank-account-dev",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "deploy": "zip -1r function.zip * && aws lambda update-function-code --function-name api-get-type-bank-account-dev --zip-file fileb://function.zip",
+      "activate-xray": "aws lambda update-function-configuration --function-name api-get-type-bank-account-dev --tracing-config Mode=Active",
+      "test": "aws lambda invoke --function-name api-get-type-bank-account-dev --payload '{\"params\": {\"querystring\": {\"email\": \"nicolas@iwanacash.com\"}}}' response.json && cat response.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "ng": "^0.0.0",
+      "pg": "^8.7.1"
+    }
+  }
+  
